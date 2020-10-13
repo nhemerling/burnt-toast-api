@@ -1,7 +1,9 @@
 'use strict';
 const knex = require('knex')
+require('dotenv').config();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 
 /**
  * create a knex instance connected to postgres
@@ -23,14 +25,14 @@ function makeUsersArray() {
     {
       id: 1,
       username: 'test-user-1',
-      name: 'Test user 1',
-      password: 'password',
+      full_name: 'Test user 1',
+      hashed_pass: 'password',
     },
     {
       id: 2,
       username: 'test-user-2',
-      name: 'Test user 2',
-      password: 'password',
+      full_name: 'Test user 2',
+      hashed_pass: 'password',
     },
   ]
 }
@@ -65,7 +67,7 @@ function cleanTables(db) {
   return db.transaction(trx =>
     trx.raw(
       `TRUNCATE
-        "user"`
+        "user" RESTART IDENTITY CASCADE`
       )
       .then(() =>
         Promise.all([

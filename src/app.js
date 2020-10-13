@@ -1,35 +1,27 @@
 'use strict';
-
-require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
+const errorHandler = require('./middleware/error-handler');
+const authRouter = require('./auth/auth-router');
+ 
 
 const app = express();
 
-const morganOption = (NODE_ENV === 'production')
-  ? 'tiny'
-  : 'common';
-
-app.use(morgan(morganOption));
-app.use(helmet());
+app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
+  skip: () => NODE_ENV === 'test',
+}));
+app.get('/', (req, res, next) => {
+  res.send('Hello, burnt_toast');
+});
 app.use(cors());
+app.use(helmet());
+app.use('/api/auth', authRouter);
+ 
+ 
 
-app.use(function errorHandler(error, req, res, next) {
-  let response;
-  if (process.env.NODE_ENV === 'production') {
-    response = { error: { message: 'server error' } };
-  } else {
-    console.error(error);
-    response = { message: error.message, error };
-  }
-  res.status(500).json(response);
-});
+app.use(errorHandler);
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
-
-module.exports = { app };
+module.exports = app;
