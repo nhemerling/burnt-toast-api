@@ -70,8 +70,3 @@ CREATE INDEX idx_review_link_user_skill_id
 
 CREATE INDEX idx_review_user_id
   ON review(fk_user_id_review_provider);
-
-
-
-
-
