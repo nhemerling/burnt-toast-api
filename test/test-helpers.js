@@ -1,9 +1,8 @@
 'use strict';
-const knex = require('knex')
+const knex = require('knex');
 require('dotenv').config();
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 /**
  * create a knex instance connected to postgres
@@ -13,7 +12,7 @@ function makeKnexInstance() {
   return knex({
     client: 'pg',
     connection: process.env.TEST_DATABASE_URL,
-  })
+  });
 }
 
 /**
@@ -34,7 +33,7 @@ function makeUsersArray() {
       full_name: 'Test user 2',
       hashed_pass: 'password',
     },
-  ]
+  ];
 }
 
 /**
@@ -42,7 +41,6 @@ function makeUsersArray() {
  * @param {object} user - contains `id` property
  * @returns {Array(languages, words)} - arrays of languages and words
  */
- 
 
 /**
  * make a bearer token with jwt for authorization header
@@ -54,8 +52,8 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({ user_id: user.id }, secret, {
     subject: user.username,
     algorithm: 'HS256',
-  })
-  return `Bearer ${token}`
+  });
+  return `Bearer ${token}`;
 }
 
 /**
@@ -64,22 +62,23 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
  * @returns {Promise} - when tables are cleared
  */
 function cleanTables(db) {
-  return db.transaction(trx =>
-    trx.raw(
-      `TRUNCATE
-        "user" RESTART IDENTITY CASCADE`
+  return db.transaction((trx) =>
+    trx
+      .raw(
+        `TRUNCATE
+        registered_user RESTART IDENTITY CASCADE`
       )
       .then(() =>
         Promise.all([
-    //       trx.raw(`ALTER SEQUENCE word_id_seq minvalue 0 START WITH 1`),
-    //       trx.raw(`ALTER SEQUENCE language_id_seq minvalue 0 START WITH 1`),
+          //       trx.raw(`ALTER SEQUENCE word_id_seq minvalue 0 START WITH 1`),
+          //       trx.raw(`ALTER SEQUENCE language_id_seq minvalue 0 START WITH 1`),
           trx.raw(`ALTER SEQUENCE user_id_seq minvalue 0 START WITH 1`),
-    //       trx.raw(`SELECT setval('word_id_seq', 0)`),
-    //       trx.raw(`SELECT setval('language_id_seq', 0)`),
+          //       trx.raw(`SELECT setval('word_id_seq', 0)`),
+          //       trx.raw(`SELECT setval('language_id_seq', 0)`),
           trx.raw(`SELECT setval('user_id_seq', 0)`),
         ])
       )
-  )
+  );
 }
 
 /**
@@ -89,18 +88,17 @@ function cleanTables(db) {
  * @returns {Promise} - when users table seeded
  */
 function seedUsers(db, users) {
-  const preppedUsers = users.map(user => ({
+  const preppedUsers = users.map((user) => ({
     ...user,
-    password: bcrypt.hashSync(user.password, 1)
-  }))
-  return db.transaction(async trx => {
-    await trx.into('user').insert(preppedUsers)
+    password: bcrypt.hashSync(user.password, 1),
+  }));
+  return db.transaction(async (trx) => {
+    await trx.into('user').insert(preppedUsers);
 
-    await trx.raw(
-      `SELECT setval('user_id_seq', ?)`,
-      [users[users.length - 1].id],
-    )
-  })
+    await trx.raw(`SELECT setval('user_id_seq', ?)`, [
+      users[users.length - 1].id,
+    ]);
+  });
 }
 
 /**
@@ -112,38 +110,34 @@ function seedUsers(db, users) {
  * @returns {Promise} - when all tables seeded
  */
 async function seedUsersLanguagesWords(db, users, languages, words) {
-  await seedUsers(db, users)
+  await seedUsers(db, users);
 
-  await db.transaction(async trx => {
-    await trx.into('language').insert(languages)
-    await trx.into('word').insert(words)
+  await db.transaction(async (trx) => {
+    await trx.into('language').insert(languages);
+    await trx.into('word').insert(words);
 
     const languageHeadWord = words.find(
-      w => w.language_id === languages[0].id
-    )
+      (w) => w.language_id === languages[0].id
+    );
 
     await trx('language')
       .update({ head: languageHeadWord.id })
-      .where('id', languages[0].id)
+      .where('id', languages[0].id);
 
     await Promise.all([
-      trx.raw(
-        `SELECT setval('language_id_seq', ?)`,
-        [languages[languages.length - 1].id],
-      ),
-      trx.raw(
-        `SELECT setval('word_id_seq', ?)`,
-        [words[words.length - 1].id],
-      ),
-    ])
-  })
+      trx.raw(`SELECT setval('language_id_seq', ?)`, [
+        languages[languages.length - 1].id,
+      ]),
+      trx.raw(`SELECT setval('word_id_seq', ?)`, [words[words.length - 1].id]),
+    ]);
+  });
 }
 
 module.exports = {
   makeKnexInstance,
-  makeUsersArray, 
+  makeUsersArray,
   makeAuthHeader,
   cleanTables,
   seedUsers,
   seedUsersLanguagesWords,
-}
+};
