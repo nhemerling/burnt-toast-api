@@ -71,6 +71,7 @@ describe('User Endpoints', function () {
       const userPasswordStartsSpaces = {
         username: 'test username',
         password: ' 1Aa!2Bb@',
+      };
       return supertest(app)
         .post('/api/user')
         .send(userPasswordStartsSpaces)
@@ -144,14 +145,14 @@ describe('User Endpoints', function () {
           .send(newUser)
           .expect((res) =>
             db
-              .from('user')
+              .from('registered_user')
               .select('*')
               .where({ id: res.body.id })
               .first()
               .then((row) => {
                 expect(row.username).to.eql(newUser.username);
 
-                return bcrypt.compare(newUser.password, row.password);
+                return bcrypt.compare(newUser.password, row.hashed_pass);
               })
               .then((compareMatch) => {
                 expect(compareMatch).to.be.true;
