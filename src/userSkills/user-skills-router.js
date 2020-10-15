@@ -10,6 +10,14 @@ userSkillsRouter.use(requireAuth);
 
 userSkillsRouter
   .route('/')
+  .get(async (req, res, next) => {
+    try {
+      const allUsersAndSkills = await UserSkillsService.getAllUsersAndSkills(req.app.get('db'));
+      res.status(200).json(allUsersAndSkills);
+    } catch (error) {
+      next(error)
+    }
+  })
   .post(jsonBodyParser, async (req, res, next) => {
     try {
       const {skill_id, skill_desc, skill_img_url} = req.body;

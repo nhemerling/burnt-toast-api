@@ -19,6 +19,11 @@ const UserSkillsService = {
       .from('skill_detail') 
       .where('fk_link_user_skill_id', id); 
   },
+  getAllUsersAndSkills(db){
+    return db
+      .select('*')
+      .from('link_user_skill');
+  }
 };
 
 module.exports = UserSkillsService;
