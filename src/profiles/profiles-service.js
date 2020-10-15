@@ -30,9 +30,6 @@ const ProfilesService = {
       .update(profileInfo)
       .returning('*');
   },
-  postNewSkill(db, newSkill, id){
-    
-  }
 };
 
 module.exports = ProfilesService;
