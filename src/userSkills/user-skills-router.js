@@ -1,6 +1,6 @@
 'use strict';
 const express = require('express');
-const {requireAuth} = require('../middleware/jwt-auth');
+const { requireAuth } = require('../middleware/jwt-auth');
 const UserSkillsService = require('./user-skills-service');
 
 const userSkillsRouter = express.Router();
@@ -38,18 +38,46 @@ userSkillsRouter
     } catch (error) {
       next(error)
     }
-  })
-userSkillsRouter  
-  .route('/:user_id')
+    const linkUserSkill = {
+      fk_user_id: id,
+      fk_skill_id: skill_id,
+      primary_img_url: skill_img_url,
+      primary_description: skill_desc,
+    };
+    const userSkill = await UserSkillsService.postLinkUserSkills(
+      req.app.get('db'),
+      linkUserSkill
+    );
+    res.status(201).json(userSkill);
+  } catch (error) {
+    next(error);
+  }
+});
+userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const userSkills = await UserSkillsService.getLinkUserSkills(
+      req.app.get('db'),
+      id
+    );
+    res.status(200).json(userSkills);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userSkillsRouter
+  .route('/details/:user_skill_id') //:skill_id is link_user_skill.id
   .get(async (req, res, next) => {
     try {
-      const id = req.user.id;
-      const userSkills = await UserSkillsService.getLinkUserSkills(req.app.get('db'), id);
-      res.status(200).json(userSkills);
+      const skillDetails = await UserSkillsService.getUserSkillDetailsById(
+        req.app.get('db'),
+        req.params.user_skill_id
+      );
+      res.status(200).json(skillDetails);
     } catch (error) {
-      next(error)
+      next(error);
     }
-  })
+  });
 
-
-  module.exports = userSkillsRouter
+module.exports = userSkillsRouter;
