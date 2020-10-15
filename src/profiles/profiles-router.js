@@ -69,18 +69,7 @@ profilesRouter
       next(error)
     }
   });
-profilesRouter
-  .route('/profiles/:profile_id/skills')
-  .get(async (req, res, next) => {
 
-  })
-  .post(async (req, res, next) => {
-    try {
-      
-    } catch (error) {
-      next(error)
-    }
-  })
 
 
 

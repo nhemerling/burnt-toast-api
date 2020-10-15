@@ -29,7 +29,7 @@ const ProfilesService = {
       .where('id', id)
       .update(profileInfo)
       .returning('*');
-  },
+  }
 };
 
 module.exports = ProfilesService;
