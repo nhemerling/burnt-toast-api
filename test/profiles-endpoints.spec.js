@@ -36,7 +36,7 @@ describe('Profiles Endpoints', function () {
         profile_desc: 'Lorem ipsum I have no profile pic',
       };
 
-      it.only(`responds with 400 required error when '${field}' is missing`, () => {
+      it(`responds with 400 required error when '${field}' is missing`, () => {
         delete postAttemptBody[field];
 
         return supertest(app)
