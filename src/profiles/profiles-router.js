@@ -92,7 +92,7 @@ profilesRouter
     }
   });
 
-//TODO: Alternate route: /user_skills/:id
+//TODO: Alternate route: /user_skills/details/:user_skill_id
 profilesRouter
   .route('/:profile_id/skills/:skill_id') //:skill_id is link_user_skill.id
   .get(async (req, res, next) => {
@@ -102,11 +102,11 @@ profilesRouter
       //  req.app.get('db'),
       //  id
       //);
-      const userSkill = await UserSkillsService.getUserSkillById(
+      const skillDetails = await UserSkillsService.getUserSkillDetailsById(
         req.app.get('db'),
         req.params.skill_id
       );
-      res.status(200).json(userSkill);
+      res.status(200).json(skillDetails);
     } catch (error) {
       next(error);
     }
