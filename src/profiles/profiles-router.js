@@ -1,7 +1,6 @@
 'use strict';
 const express = require('express');
 const { requireAuth } = require('../middleware/jwt-auth');
-const UserSkillsService = require('../user-skills/user-skills-service');
 const ProfilesService = require('./profiles-service');
 
 const profilesRouter = express.Router();
@@ -78,35 +77,6 @@ profilesRouter
         profileInfo
       );
       res.status(200).json(updatedProfile);
-    } catch (error) {
-      next(error);
-    }
-  });
-profilesRouter
-  .route('/profiles/:profile_id/skills')
-  .get(async (req, res, next) => {})
-  .post(async (req, res, next) => {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  });
-
-//TODO: Alternate route: /user_skills/details/:user_skill_id
-profilesRouter
-  .route('/:profile_id/skills/:skill_id') //:skill_id is link_user_skill.id
-  .get(async (req, res, next) => {
-    try {
-      //const id = req.user.id;
-      //const profile = await ProfilesService.getUserProfileById(
-      //  req.app.get('db'),
-      //  id
-      //);
-      const skillDetails = await UserSkillsService.getUserSkillDetailsById(
-        req.app.get('db'),
-        req.params.skill_id
-      );
-      res.status(200).json(skillDetails);
     } catch (error) {
       next(error);
     }

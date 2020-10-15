@@ -7,7 +7,6 @@ const CategoriesService = require('./categories-service');
 const categoriesRouter = express.Router();
 
 categoriesRouter.use(requireAuth);
-
 categoriesRouter
   .route('/')
   .get(async (req, res, next) => {
