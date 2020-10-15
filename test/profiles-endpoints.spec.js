@@ -41,6 +41,7 @@ describe('Profiles Endpoints', function () {
 
         return supertest(app)
           .post('/api/profiles')
+          .set('Authorization', helpers.makeAuthHeader(testUser))
           .send(postAttemptBody)
           .expect(400, {
             error: `Missing '${field}' in request body`,
