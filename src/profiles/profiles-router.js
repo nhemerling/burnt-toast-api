@@ -82,34 +82,8 @@ profilesRouter
       next(error);
     }
   });
-profilesRouter
-  .route('/profiles/:profile_id/skills')
-  .get(async (req, res, next) => {})
-  .post(async (req, res, next) => {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  });
 
-//TODO: Alternate route: /user_skills/:id
-profilesRouter
-  .route('/:profile_id/skills/:skill_id') //:skill_id is link_user_skill.id
-  .get(async (req, res, next) => {
-    try {
-      //const id = req.user.id;
-      //const profile = await ProfilesService.getUserProfileById(
-      //  req.app.get('db'),
-      //  id
-      //);
-      const userSkill = await UserSkillsService.getUserSkillById(
-        req.app.get('db'),
-        req.params.skill_id
-      );
-      res.status(200).json(userSkill);
-    } catch (error) {
-      next(error);
-    }
-  });
+
+
 
 module.exports = profilesRouter;
