@@ -1,6 +1,6 @@
 'use strict';
-const knex = require('knex');
 require('dotenv').config();
+const knex = require('knex');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -24,13 +24,11 @@ function makeUsersArray() {
     {
       id: 1,
       username: 'test-user-1',
-      full_name: 'Test user 1',
       hashed_pass: 'password',
     },
     {
       id: 2,
       username: 'test-user-2',
-      full_name: 'Test user 2',
       hashed_pass: 'password',
     },
   ];
@@ -72,10 +70,12 @@ function cleanTables(db) {
         Promise.all([
           //       trx.raw(`ALTER SEQUENCE word_id_seq minvalue 0 START WITH 1`),
           //       trx.raw(`ALTER SEQUENCE language_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`ALTER SEQUENCE user_id_seq minvalue 0 START WITH 1`),
+          trx.raw(
+            `ALTER SEQUENCE registered_user_id_seq minvalue 0 START WITH 1`
+          ),
           //       trx.raw(`SELECT setval('word_id_seq', 0)`),
           //       trx.raw(`SELECT setval('language_id_seq', 0)`),
-          trx.raw(`SELECT setval('user_id_seq', 0)`),
+          trx.raw(`SELECT setval('registered_user_id_seq', 0)`),
         ])
       )
   );
@@ -90,12 +90,12 @@ function cleanTables(db) {
 function seedUsers(db, users) {
   const preppedUsers = users.map((user) => ({
     ...user,
-    password: bcrypt.hashSync(user.password, 1),
+    hashed_pass: bcrypt.hashSync(user.hashed_pass, 1),
   }));
   return db.transaction(async (trx) => {
-    await trx.into('user').insert(preppedUsers);
+    await trx.into('registered_user').insert(preppedUsers);
 
-    await trx.raw(`SELECT setval('user_id_seq', ?)`, [
+    await trx.raw(`SELECT setval('registered_user_id_seq', ?)`, [
       users[users.length - 1].id,
     ]);
   });
