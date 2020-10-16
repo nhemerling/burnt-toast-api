@@ -13,11 +13,12 @@ const UserSkillsService = {
       .from('skill_detail')
       .where('fk_link_user_skill_id', id);
   },
-  getAllUsersAndSkills(db){
-    return db
-      .select('*')
-      .from('link_user_skill');
-  }
+  getAllUsersAndSkills(db) {
+    return db.select('*').from('link_user_skill');
+  },
+  getUserSkillsBySkill(db, skillId) {
+    return db.select('*').from('link_user_skill').where('fk_skill_id', skillId);
+  },
 };
 
 module.exports = UserSkillsService;

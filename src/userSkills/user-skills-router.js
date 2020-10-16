@@ -69,7 +69,7 @@ userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
 });
 
 userSkillsRouter
-  .route('/details/:user_skill_id') //:skill_id is link_user_skill.id
+  .route('/details/:user_skill_id') //:user_skill_id is link_user_skill.id
   .get(async (req, res, next) => {
     try {
       const skillDetails = await UserSkillsService.getUserSkillDetailsById(
@@ -77,6 +77,40 @@ userSkillsRouter
         req.params.user_skill_id
       );
       res.status(200).json(skillDetails);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+userSkillsRouter
+  .route('/skills/:skill_id') //:skill_id is skill.id ? q = query, t = type
+  .get(async (req, res, next) => {
+    let userSkills = [];
+    try {
+      userSkills = await UserSkillsService.getUserSkillsBySkill(
+        req.app.get('db'),
+        req.params.skill_id
+      );
+      const searchText = req.query.q;
+      const skillType = req.query.t;
+
+      if (searchText) {
+        const searchFiltered = userSkills.filter((userSkill) => {
+          const desc = userSkill.primary_description;
+          if (desc) {
+            return desc.includes(searchText);
+          }
+          return false;
+        });
+        userSkills = searchFiltered;
+      }
+      if (skillType) {
+        const typeFiltered = userSkills.filter((userSkill) => {
+          return userSkill.user_skill_type === skillType.toUpperCase();
+        });
+        userSkills = typeFiltered;
+      }
+      res.status(200).json(userSkills);
     } catch (error) {
       next(error);
     }
