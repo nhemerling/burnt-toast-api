@@ -20,16 +20,17 @@ userSkillsRouter
   })
   .post(jsonBodyParser, async (req, res, next) => {
     try {
-      const {skill_id, skill_desc, skill_img_url} = req.body;
+      const {skill_id, skill_desc, user_skill_type, skill_img_url} = req.body;
       const id = req.user.id;
       if (!skill_id) {
         return res.status(400).json({
           error: `Missing skill_id in request body`,
         });
-      }
+      } 
       const linkUserSkill = {
         fk_user_id: id,
         fk_skill_id: skill_id,
+        user_skill_type,
         primary_img_url: skill_img_url,
         primary_description: skill_desc
       }
