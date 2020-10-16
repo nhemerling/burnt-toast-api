@@ -41,15 +41,15 @@ INSERT INTO category (id, category_name)
 VALUES
 (
   1,
-  'Some Category'
+  'Automotive'
 ),
 (
   2,
-  'Another Category'
+  'Art'
 ),
 (
   3,
-  'Category 3 No Skills'
+  'Beauty'
 );
 
 INSERT INTO skill (id, fk_category_id, skill_name, skill_desc)
@@ -57,38 +57,38 @@ VALUES
 (
   1,
   1,
-  'One',
-  'A skill in Some Category'
+  'Car Painting',
+  'Exterior design'
 ),
 (
   2,
   1,
-  'Two ',
-  'A skill in Some Category'
+  'Bumper Repair',
+  'Minor bumer issues and dents'
 ),
 (
   3,
-  1,
-  'Three',
-  'A skill in Some Category'
+  2,
+  'Commissions',
+  'Realistic and comic sketches'
 ),
 (
   4,
   2,
-  'Four',
-  'A skill in Another Category'
+  'Model',
+  'Life model for art parties'
 ),
 (
   5,
-  2,
-  'Five',
-  'A skill in Another Category'
+  3,
+  'Homemade',
+  'Homemade beauty prooducts and remedies'
 ),
 (
   6,
   2,
-  'Six',
-  'A skill in Another Category'
+  'Makeup',
+  'Skilled artist for wedding, party makeup'
 );
 
 INSERT INTO link_user_skill(id, fk_user_id, fk_skill_id, user_skill_type, primary_img_url, primary_description)
