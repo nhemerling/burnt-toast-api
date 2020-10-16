@@ -1,7 +1,6 @@
 'use strict';
 const express = require('express');
 const { requireAuth } = require('../middleware/jwt-auth');
-const UserSkillsService = require('../user-skills/user-skills-service');
 const ProfilesService = require('./profiles-service');
 
 const profilesRouter = express.Router();
@@ -82,8 +81,5 @@ profilesRouter
       next(error);
     }
   });
-
-
-
 
 module.exports = profilesRouter;
