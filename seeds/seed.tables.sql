@@ -41,15 +41,55 @@ INSERT INTO category (id, category_name)
 VALUES
 (
   1,
-  'Some Category'
+  'Automotive'
 ),
 (
   2,
-  'Another Category'
+  'Art'
 ),
 (
   3,
-  'Category 3 No Skills'
+  'Beauty'
+),
+(
+  4,
+  'Computers'
+),
+(
+  5,
+  'Education'
+),
+(
+  6,
+  'Electronics'
+),
+(
+  7,
+  'Food'
+),
+(
+  8,
+  'Handmade'
+),
+(
+  9,
+  'Health'
+),
+(
+  10,
+  'Home'
+),
+(
+  11,
+  'Repair'
+),
+(
+  12,
+  'Sports'
+),
+(
+  13,
+  'Other'
 );
 
 INSERT INTO skill (id, fk_category_id, skill_name, skill_desc)
@@ -57,38 +97,272 @@ VALUES
 (
   1,
   1,
-  'One',
-  'A skill in Some Category'
+  'Car Painting',
+  'Exterior finish painting and vinyl wrapping'
 ),
 (
   2,
   1,
-  'Two ',
-  'A skill in Some Category'
+  'Bumper Repair',
+  'From small scratch and dent fixes to bumper replacements'
 ),
 (
   3,
   1,
-  'Three',
-  'A skill in Some Category'
+  'Ride Share',
+  'Ut voluptate elit elit pariatur quis voluptate.'
 ),
 (
   4,
-  2,
-  'Four',
-  'A skill in Another Category'
+  1,
+  'Tires',
+  'Ullamco quis occaecat minim nisi do ipsum anim velit incididunt.'
 ),
 (
   5,
-  2,
-  'Five',
-  'A skill in Another Category'
+  1,
+  'Maintenance Training',
+  'Cillum pariatur ex occaecat et magna minim sunt eu officia qui occaecat nostrud esse magna.'
 ),
 (
   6,
   2,
-  'Six',
-  'A skill in Another Category'
+  'Art Classes',
+  'Consectetur deserunt laborum aute reprehenderit in voluptate Lorem voluptate ad ad irure incididunt eu.'
+),
+(
+  7,
+  2,
+  'Commissions',
+  'Nisi cupidatat commodo velit voluptate nisi laboris fugiat et minim aute.'
+),
+(
+  8,
+  3,
+  'Homemade',
+  'Duis labore velit dolor reprehenderit eu.'
+),
+(
+  9,
+  3,
+  'Makeup',
+  'A skill in Some Category'
+),
+(
+  10,
+  3,
+  'Skin Care',
+  'A skill in Some Category'
+),
+(
+  11,
+  4,
+  'Web Design',
+  'Designing web site graphic elements including layout, color scheme, images, and user interface elements'
+),
+(
+  12,
+  4,
+  'Hardware Fix',
+  'A skill in Some Category'
+),
+(
+  13,
+  4,
+  'Software Setup',
+  'A skill in Some Category'
+),
+(
+  14,
+  4,
+  'Web Development',
+  'Writing code to covert a site design/idea into a functioning website'
+),
+(
+  15,
+  5,
+  'Language Learning',
+  'A skill in Some Category'
+),
+(
+  16,
+  5,
+  'Tutorials',
+  'A skill in Some Category'
+),
+(
+  17,
+  5,
+  'Tutoring',
+  'A skill in Some Category'
+),
+(
+  18,
+  6,
+  'How to',
+  'A skill in Some Category'
+),
+(
+  19,
+  6,
+  'Quick Fix',
+  'A skill in Some Category'
+),
+(
+  20,
+  7,
+  'Diet',
+  'A skill in Some Category'
+),
+(
+  21,
+  7,
+  'Produce',
+  'A skill in Some Category'
+),
+(
+  22,
+  7,
+  'Home Cook',
+  'A skill in Some Category'
+),
+(
+  23,
+  7,
+  'Meal Prep',
+  'A skill in Some Category'
+),
+(
+  24,
+  8,
+  'Blacksmith',
+  'A skill in Some Category'
+),
+(
+  25,
+  8,
+  'Knitting',
+  'A skill in Some Category'
+),
+(
+  26,
+  8,
+  'Leather Craft',
+  'A skill in Some Category'
+),
+(
+  27,
+  8,
+  'Woodworking',
+  'A skill in Some Category'
+),
+(
+  28,
+  9,
+  'Excercise',
+  'A skill in Some Category'
+),
+(
+  29,
+  9,
+  'Healing',
+  'A skill in Some Category'
+),
+(
+  30,
+  9,
+  'Hugs',
+  'A skill in Some Category'
+),
+(
+  31,
+  9,
+  'Sound Baths',
+  'A skill in Some Category'
+),
+(
+  32,
+  9,
+  'Weightlifting',
+  'A skill in Some Category'
+),
+(
+  33,
+  10,
+  'Decor',
+  'A skill in Some Category'
+),
+(
+  34,
+  10,
+  'Painting',
+  'A skill in Some Category'
+),
+(
+  35,
+  10,
+  'Repair',
+  'A skill in Some Category'
+),
+(
+  36,
+  10,
+  'Roofing',
+  'A skill in Some Category'
+),
+(
+  37,
+  11,
+  'Computers',
+  'A skill in Some Category'
+),
+(
+  38,
+  11,
+  'Fences',
+  'A skill in Some Category'
+),
+(
+  39,
+  11,
+  'Hearts',
+  'A skill in Some Category'
+),
+(
+  40,
+  12,
+  'Improving form',
+  'A skill in Some Category'
+),
+(
+  41,
+  12,
+  'Improving Score',
+  'A skill in Some Category'
+),
+(
+  42,
+  12,
+  'Team',
+  'A skill in Some Category'
+),
+(
+  43,
+  13,
+  'Active Listening',
+  'A skill in Some Category'
+),
+(
+  44,
+  13,
+  'Plus One',
+  'A skill in Some Category'
+),
+(
+  45,
+  13,
+  'Dance Partner',
+  'A skill in Some Category'
 );
 
 INSERT INTO link_user_skill(id, fk_user_id, fk_skill_id, user_skill_type, primary_img_url, primary_description)
