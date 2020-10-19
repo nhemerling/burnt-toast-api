@@ -115,6 +115,8 @@ userSkillsRouter
 
       if (zip) {
         const zipFiltered = userSkills.filter((userSkill) => {
+          //need to pull profileZip from user profile
+
           return userSkill.zip === zip;
         });
         userSkills = zipFiltered;

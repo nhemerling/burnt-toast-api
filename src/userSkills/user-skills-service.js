@@ -17,7 +17,19 @@ const UserSkillsService = {
     return db.select('*').from('link_user_skill');
   },
   getUserSkillsBySkill(db, skillId) {
-    return db.select('*').from('link_user_skill').where('fk_skill_id', skillId);
+    return db
+      .select(
+        'us.id',
+        'us.fk_user_id',
+        'us.fk_skill_id',
+        'us.user_skill_type',
+        'us.primary_img_url',
+        'us.primary_description',
+        'p.zip'
+      )
+      .from('link_user_skill as us')
+      .join('user_profile as p', 'p.fk_user_id', 'us.fk_user_id')
+      .where('fk_skill_id', skillId);
   },
 };
 
