@@ -14,27 +14,87 @@ INSERT INTO registered_user (id, username, hashed_pass)
 VALUES 
 (
   1,
-  'test',
+  'fred',
   --password = "password"
   '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
 ),
 (
   2,
-  'test2',
+  'dave',
   --password = "password2"
   '$2a$12$XPvYifaweFSAkt6eCXQGwON.1.fND4jpDzZgAOXRsQvJWEKEK1enu'
+),
+(
+  3,
+  'callMeMitch',
+  --password = "password"
+  '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
+),
+(
+  4,
+  'diane23474',
+  --password = "password"
+  '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
+),
+(
+  5,
+  'justJamie',
+  --password = "password"
+  '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
+),
+(
+  6,
+  'regd_no_profile',
+  --password = "password"
+  '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
 );
 
 INSERT INTO user_profile (id, fk_user_id, full_name, email, zip, profile_desc, profile_img_url)
 VALUES
 (
   1,
-  2,
-  'User Two',
-  'user2@testytesttest.com',
+  1,
+  'Fred',
+  'fred@testytesttest5678.com',
   '90210',
   'The best at everything',
   'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=Only+The+Best'
+),
+(
+  2,
+  3,
+  'Mitchell',
+  'mitch@testytesttest5678.com',
+  '95431',
+  'I love to help',
+  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=I+Love+To+Help'
+),
+(
+  3,
+  2,
+  'Dave',
+  'dave@testytesttest5678.com',
+  '23643',
+  'Help me help you',
+  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=Help+Me+Help+You'
+),
+(
+  4,
+  4,
+  'Diane',
+  'diane@testytesttest5678.com',
+  '23474',
+  'No More Dirt Diane - Does it dirty, leaves it clean - for all your household cleaning needs',
+  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=No+More+Dirt+Diane'
+),
+(
+  5,
+  5,
+  'Jamie',
+  'jjj@testytesttest5678.com',
+  '90210',
+  'How can I help?',
+  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=How+Can+I+Help
 );
 
 INSERT INTO category (id, category_name) 
