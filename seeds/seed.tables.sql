@@ -94,7 +94,7 @@ VALUES
   'jjj@testytesttest5678.com',
   '90210',
   'How can I help?',
-  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=How+Can+I+Help
+  'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=How+Can+I+Help'
 );
 
 INSERT INTO category (id, category_name) 
@@ -429,7 +429,7 @@ INSERT INTO link_user_skill(id, fk_user_id, fk_skill_id, user_skill_type, primar
 VALUES
 (
   1,
-  2,
+  1,
   1,
   'PROVIDER',
   'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=Some+Service',
@@ -437,7 +437,7 @@ VALUES
 ),
 (
   2,
-  2,
+  1,
   5,
   'PROVIDER',
   'https://via.placeholder.com/400.png/00FF00/000000?text=Some+Service',
@@ -445,7 +445,7 @@ VALUES
 ),
 (
   3,
-  2,
+  1,
   6,
   'SEEKER',
   null,
@@ -453,9 +453,33 @@ VALUES
 ),
 (
   4,
-  2,
+  1,
   2,
   'SEEKER',
+  null,
+  null
+),
+(
+  5,
+  4,
+  10,
+  'PROVIDER',
+  null,
+  null
+),
+(
+  6,
+  4,
+  15,
+  'PROVIDER',
+  null,
+  null
+),
+(
+  7,
+  4,
+  20,
+  'PROVIDER',
   null,
   null
 );
