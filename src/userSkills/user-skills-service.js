@@ -25,10 +25,12 @@ const UserSkillsService = {
         'us.user_skill_type',
         'us.primary_img_url',
         'us.primary_description',
-        'p.zip'
+        'p.zip',
+        's.skill_name'
       )
       .from('link_user_skill as us')
       .join('user_profile as p', 'p.fk_user_id', 'us.fk_user_id')
+      .join('skill as s', 's.id', 'us.fk_skill_id')
       .where('fk_skill_id', skillId);
   },
 };
