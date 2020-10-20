@@ -50,7 +50,7 @@ profilesRouter
   .route('/:profile_id')
   .get(jsonBodyParser, async (req, res, next) => {
     try {
-      const id = req.user.id;
+      const id = req.params.profile_id;
       const profile = await ProfilesService.getUserProfileById(
         req.app.get('db'),
         id
