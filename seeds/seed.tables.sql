@@ -49,6 +49,8 @@ VALUES
   '$2a$12$E5jQYCepba4nS/O7rkDZ7.rEQcrtysi6..WCq7SCiBgKFI/zLlTNi'
 );
 
+SELECT setval('registered_user_id_seq', (SELECT max(id) FROM registered_user), true);
+
 INSERT INTO user_profile (id, fk_user_id, full_name, email, zip, profile_desc, profile_img_url)
 VALUES
 (
@@ -96,6 +98,9 @@ VALUES
   'How can I help?',
   'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=How+Can+I+Help'
 );
+
+SELECT setval('user_profile_id_seq', (SELECT max(id) FROM user_profile), true);
+
 
 INSERT INTO category (id, category_name) 
 VALUES
@@ -151,6 +156,9 @@ VALUES
   13,
   'Other'
 );
+
+SELECT setval('category_id_seq', (SELECT max(id) FROM category), true);
+
 
 INSERT INTO skill (id, fk_category_id, skill_name, skill_desc)
 VALUES
@@ -425,6 +433,9 @@ VALUES
   'A skill in Some Category'
 );
 
+SELECT setval('skill_id_seq', (SELECT max(id) FROM skill), true);
+
+
 INSERT INTO link_user_skill(id, fk_user_id, fk_skill_id, user_skill_type, primary_img_url, primary_description)
 VALUES
 (
@@ -492,6 +503,9 @@ VALUES
   null
 );
 
+SELECT setval('link_user_skill_id_seq', (SELECT max(id) FROM link_user_skill), true);
+
+
 INSERT INTO skill_detail (id, fk_link_user_skill_id, detail_img_url, details_description)
 VALUES (
   1,
@@ -529,6 +543,9 @@ VALUES (
   'https://via.placeholder.com/400.png/0000FF/FFFFFF?text=BEST',
   'you guessed it - still the best'
 );
+
+SELECT setval('skill_detail_id_seq', (SELECT max(id) FROM skill_detail), true);
+
 
 INSERT INTO review (fk_link_user_skill_id, fk_user_id_review_provider, rating, review_text)
 VALUES 
