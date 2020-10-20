@@ -12,21 +12,23 @@ userSkillsRouter
   .route('/')
   .get(async (req, res, next) => {
     try {
-      const allUsersAndSkills = await UserSkillsService.getAllUsersAndSkills(req.app.get('db'));
+      const allUsersAndSkills = await UserSkillsService.getAllUsersAndSkills(
+        req.app.get('db')
+      );
       res.status(200).json(allUsersAndSkills);
     } catch (error) {
-      next(error)
+      next(error);
     }
   })
   .post(jsonBodyParser, async (req, res, next) => {
     try {
-      const {skill_id, skill_desc, user_skill_type, skill_img_url} = req.body;
+      const { skill_id, skill_desc, user_skill_type, skill_img_url } = req.body;
       const id = req.user.id;
       if (!skill_id) {
         return res.status(400).json({
           error: `Missing skill_id in request body`,
         });
-      } 
+      }
       const linkUserSkill = {
         fk_user_id: id,
         fk_skill_id: skill_id,
@@ -56,7 +58,7 @@ userSkillsRouter
   });
 userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.params.user_id;
     const userSkills = await UserSkillsService.getLinkUserSkills(
       req.app.get('db'),
       id
@@ -68,7 +70,7 @@ userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
 });
 
 userSkillsRouter
-  .route('/details/:user_skill_id') //:skill_id is link_user_skill.id
+  .route('/details/:user_skill_id') //:user_skill_id is link_user_skill.id
   .get(async (req, res, next) => {
     try {
       const skillDetails = await UserSkillsService.getUserSkillDetailsById(
@@ -76,6 +78,51 @@ userSkillsRouter
         req.params.user_skill_id
       );
       res.status(200).json(skillDetails);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+userSkillsRouter
+  .route('/skills/:skill_id') //:skill_id is skill.id ? q = query, t = type, z = zip
+  .get(async (req, res, next) => {
+    let userSkills = [];
+    try {
+      userSkills = await UserSkillsService.getUserSkillsBySkill(
+        req.app.get('db'),
+        req.params.skill_id
+      );
+      const searchText = req.query.q;
+      const skillType = req.query.t;
+      const zip = req.query.z;
+
+      if (searchText) {
+        const searchFiltered = userSkills.filter((userSkill) => {
+          const desc = userSkill.primary_description;
+          if (desc) {
+            return desc.includes(searchText);
+          }
+          return false;
+        });
+        userSkills = searchFiltered;
+      }
+      if (skillType) {
+        const typeFiltered = userSkills.filter((userSkill) => {
+          return userSkill.user_skill_type === skillType.toUpperCase();
+        });
+        userSkills = typeFiltered;
+      }
+
+      if (zip) {
+        const zipFiltered = userSkills.filter((userSkill) => {
+          //need to pull profileZip from user profile
+
+          return userSkill.zip === zip;
+        });
+        userSkills = zipFiltered;
+      }
+
+      res.status(200).json(userSkills);
     } catch (error) {
       next(error);
     }
