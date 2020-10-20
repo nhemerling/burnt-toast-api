@@ -1,3 +1,4 @@
+'use strict';
 const UserSkillsService = {
   postLinkUserSkills(db, linkUserSkill) {
     return db.insert(linkUserSkill).into('link_user_skill').returning('*');

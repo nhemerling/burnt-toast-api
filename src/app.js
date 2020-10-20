@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -13,6 +14,7 @@ const skillsRouter = require('./skills/skills-router');
 const userSkillsRouter = require('./userSkills/user-skills-router');
 const reviewsRouter = require('../src/reviews/reviews-router');
 const app = express();
+
 
 app.use(
   morgan(NODE_ENV === 'production' ? 'tiny' : 'common', {
