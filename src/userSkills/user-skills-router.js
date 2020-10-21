@@ -42,21 +42,11 @@ userSkillsRouter
     } catch (error) {
       next(error);
     }
-    const linkUserSkill = {
-      fk_user_id: id,
-      fk_skill_id: skill_id,
-      primary_img_url: skill_img_url,
-      primary_description: skill_desc,
-    };
-    const userSkill = await UserSkillsService.postLinkUserSkills(
-      req.app.get('db'),
-      linkUserSkill
-    );
-    res.status(201).json(userSkill);
+
   });
 userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.params.user_id;
     const userSkills = await UserSkillsService.getLinkUserSkills(
       req.app.get('db'),
       id
