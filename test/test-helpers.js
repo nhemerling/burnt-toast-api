@@ -653,7 +653,7 @@ function cleanTables(db) {
           trx.raw(`SELECT setval('skill_detail_id_seq', 0)`),
           trx.raw(`SELECT setval('link_user_skill_id_seq', 0)`),
           trx.raw(`SELECT setval('skill_id_seq', 0)`),
-          trx.raw(`SELECT setval('category_seq', 0)`),
+          trx.raw(`SELECT setval('category_id_seq', 0)`),
           trx.raw(`SELECT setval('user_profile_id_seq', 0)`),
           trx.raw(`SELECT setval('registered_user_id_seq', 0)`),
         ])
@@ -681,34 +681,53 @@ function seedUsers(db, users) {
   });
 }
 
-/**
- * seed the databases with words and update sequence counter
- * @param {knex instance} db
- * @param {array} users - array of user objects for insertion
- * @param {array} languages - array of languages objects for insertion
- * @param {array} words - array of words objects for insertion
- * @returns {Promise} - when all tables seeded
- */
-async function seedUsersLanguagesWords(db, users, languages, words) {
-  await seedUsers(db, users);
+//TODO Implement individual seed<Entity> functions as needed
+function seedProfiles(db, profiles) {}
 
-  await db.transaction(async (trx) => {
-    await trx.into('language').insert(languages);
-    await trx.into('word').insert(words);
+function seedCategories(db, categories) {}
 
-    const languageHeadWord = words.find(
-      (w) => w.language_id === languages[0].id
-    );
+function seedSkills(db, skills) {}
 
-    await trx('language')
-      .update({ head: languageHeadWord.id })
-      .where('id', languages[0].id);
+function seedLinkUserSkill(db, userSkills) {}
+
+function seedSkillDetails(db, details) {}
+
+function seedDb(db) {
+  const usersArray = this.makeUsersArray();
+  const profilesArray = this.makeUserProfilesArray();
+  const categoriesArray = this.makeCategoriesArray();
+  const skillsArray = this.makeSkillsArray();
+  const userSkillsArray = this.makeLinkUserSKillsArray();
+  const skillDetailsArray = this.makeSkillsDetailArray();
+
+  return db.transaction(async (trx) => {
+    await seedUsers(trx, usersArray);
+    //await seedProfiles(trx, this.makeUserProfilesArray());
+    await trx.into('user_profile').insert(profilesArray);
+    await trx.into('category').insert(categoriesArray);
+    await trx.into('skill').insert(skillsArray);
+    await trx.into('link_user_skill').insert(userSkillsArray);
+    await trx.into('skill_detail').insert(skillDetailsArray);
 
     await Promise.all([
-      trx.raw(`SELECT setval('language_id_seq', ?)`, [
-        languages[languages.length - 1].id,
+      trx.raw(`SELECT setval('skill_detail_id_seq', ?)`, [
+        skillDetailsArray[skillDetailsArray.length - 1].id,
       ]),
-      trx.raw(`SELECT setval('word_id_seq', ?)`, [words[words.length - 1].id]),
+      trx.raw(`SELECT setval('link_user_skill_id_seq', ?)`, [
+        userSkillsArray[userSkillsArray.length - 1].id,
+      ]),
+      trx.raw(`SELECT setval('skill_id_seq', ?)`, [
+        skillsArray[skillsArray.length - 1].id,
+      ]),
+      trx.raw(`SELECT setval('category_id_seq', ?)`, [
+        categoriesArray[categoriesArray.length - 1].id,
+      ]),
+      trx.raw(`SELECT setval('user_profile_id_seq', ?)`, [
+        profilesArray[profilesArray.length - 1].id,
+      ]),
+      trx.raw(`SELECT setval('registered_user_id_seq', ?)`, [
+        usersArray[usersArray.length - 1].id,
+      ]),
     ]);
   });
 }
@@ -719,5 +738,5 @@ module.exports = {
   makeAuthHeader,
   cleanTables,
   seedUsers,
-  seedUsersLanguagesWords,
+  seedDb,
 };
