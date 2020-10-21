@@ -22,7 +22,8 @@ describe('Profiles Endpoints', function () {
    * @description Register a user and populate their fields
    **/
   describe(`POST /api/profiles`, () => {
-    beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+    //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+    beforeEach('seed database', () => helpers.seedDb(db));
 
     //check required fields
     const requiredFields = ['full_name', 'email'];

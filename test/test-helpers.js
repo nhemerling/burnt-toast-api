@@ -693,12 +693,12 @@ function seedLinkUserSkill(db, userSkills) {}
 function seedSkillDetails(db, details) {}
 
 function seedDb(db) {
-  const usersArray = this.makeUsersArray();
-  const profilesArray = this.makeUserProfilesArray();
-  const categoriesArray = this.makeCategoriesArray();
-  const skillsArray = this.makeSkillsArray();
-  const userSkillsArray = this.makeLinkUserSKillsArray();
-  const skillDetailsArray = this.makeSkillsDetailArray();
+  const usersArray = makeUsersArray();
+  const profilesArray = makeUserProfilesArray();
+  const categoriesArray = makeCategoriesArray();
+  const skillsArray = makeSkillsArray();
+  const userSkillsArray = makeLinkUserSKillsArray();
+  const skillDetailsArray = makeSkillsDetailArray();
 
   return db.transaction(async (trx) => {
     await seedUsers(trx, usersArray);
