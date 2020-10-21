@@ -2,7 +2,7 @@ const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe.skip('Protected Endpoints', function () {
+describe('Protected Endpoints', function () {
   let db;
 
   const testUsers = helpers.makeUsersArray();
@@ -59,18 +59,50 @@ describe.skip('Protected Endpoints', function () {
       method: supertest(app).put,
     },
     /*
-     * /api/users/:user_id
+     * /api/user_skills
      */
     {
-      name: 'PATCH /api/users/:user_id',
-      path: '/api/users/1',
-      method: supertest(app).patch,
+      name: 'POST /api/user_skills',
+      path: '/api/user_skills',
+      method: supertest(app).post,
     },
+    /*
+     * /api/user_skills/:user_id
+     */
     {
-      name: 'DELETE /api/users/:user_id',
-      path: '/api/users/1',
-      method: supertest(app).delete,
+      name: 'GET /api/user_skills/:user_id',
+      path: '/api/user_skills/1',
+      method: supertest(app).get,
     },
+    /*
+     * /api/user_skills/skills/:skill_id
+     */
+    {
+      name: 'GET /api/user_skills/skills/:skill_id',
+      path: '/api/user_skills/skills/1',
+      method: supertest(app).get,
+    },
+    /*
+     * /api/user_skills/details/:user_skill_id
+     */
+    {
+      name: 'GET /api/user_skills/details/:user_skill_id',
+      path: '/api/user_skills/details/1',
+      method: supertest(app).get,
+    },
+    /*
+     * /api/users/:user_id
+     */
+    //    {
+    //      name: 'PATCH /api/users/:user_id',
+    //      path: '/api/users/1',
+    //      method: supertest(app).patch,
+    //    },
+    //    {
+    //      name: 'DELETE /api/users/:user_id',
+    //      path: '/api/users/1',
+    //      method: supertest(app).delete,
+    //    },
   ];
 
   protectedEndpoints.forEach((endpoint) => {
