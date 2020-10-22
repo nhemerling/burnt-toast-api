@@ -44,7 +44,6 @@ userRouter.post('/', jsonBodyParser, async (req, res, next) => {
       zip
     }
     await UserService.createInitialProfile(req.app.get('db'), user_profile)
-    const serialiazedUser = 
     res
       .status(201)
       .location(path.posix.join(req.originalUrl, `/${user.id}`))
