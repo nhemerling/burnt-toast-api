@@ -468,7 +468,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 2,
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary funky for this skill',
     },
     {
@@ -476,7 +475,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -484,7 +482,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 3,
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary funky for this skill',
     },
     {
@@ -492,7 +489,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 4,
       fk_skill_id: 6,
       user_skill_type: 'SEEKER',
-      //primary_img_url: null,
       primary_description: 'User summary funky for this skill',
     },
     //Several skills (PROVIDER and SEEKER) for user 1
@@ -501,7 +497,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 30,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -509,7 +504,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 22,
       user_skill_type: 'SEEKER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -517,7 +511,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 27,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -525,7 +518,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 19,
       user_skill_type: 'SEEKER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -533,7 +525,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 20,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -541,7 +532,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 1,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
     {
@@ -549,7 +539,6 @@ function makeLinkUserSKillsArray() {
       fk_user_id: 1,
       fk_skill_id: 2,
       user_skill_type: 'PROVIDER',
-      //primary_img_url: null,
       primary_description: 'User summary for this skill',
     },
   ];
