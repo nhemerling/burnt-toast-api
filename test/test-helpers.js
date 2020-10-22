@@ -458,17 +458,18 @@ function makeSkillsArray() {
 }
 
 function makeLinkUserSKillsArray() {
+  // 4 profiles with skill 6:
+  //    3 PROVIDERS/1 SEEKER
+  //    2 in 90210 zip
+  //    3 with 'funky' in desc
   return [
-    // 4 profiles with skill 6:
-    //    3 PROVIDERS/1 SEEKER
-    //    2 in 90210 zip
-    //    3 with 'funky' in desc
     {
       id: 1,
       fk_user_id: 2,
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary funky for this skill',
+      primary_img_url: null,
     },
     {
       id: 2,
@@ -476,6 +477,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 3,
@@ -483,6 +485,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 6,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary funky for this skill',
+      primary_img_url: null,
     },
     {
       id: 4,
@@ -490,6 +493,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 6,
       user_skill_type: 'SEEKER',
       primary_description: 'User summary funky for this skill',
+      primary_img_url: null,
     },
     //Several skills (PROVIDER and SEEKER) for user 1
     {
@@ -498,6 +502,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 30,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 6,
@@ -505,6 +510,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 22,
       user_skill_type: 'SEEKER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 7,
@@ -512,6 +518,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 27,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 8,
@@ -519,6 +526,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 19,
       user_skill_type: 'SEEKER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 9,
@@ -526,6 +534,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 20,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 10,
@@ -533,6 +542,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 1,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
     {
       id: 11,
@@ -540,6 +550,7 @@ function makeLinkUserSKillsArray() {
       fk_skill_id: 2,
       user_skill_type: 'PROVIDER',
       primary_description: 'User summary for this skill',
+      primary_img_url: null,
     },
   ];
 }
@@ -725,6 +736,7 @@ module.exports = {
   makeKnexInstance,
   makeUsersArray,
   makeAuthHeader,
+  makeLinkUserSKillsArray,
   cleanTables,
   seedUsers,
   seedDb,

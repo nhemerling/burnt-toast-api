@@ -1,3 +1,4 @@
+const { expect } = require('chai');
 const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
@@ -18,22 +19,66 @@ describe('UserSkills Endpoints', function () {
 
   afterEach('cleanup', () => helpers.cleanTables(db));
 
-  /*
-  /user_skills
-    POST Adds a skill to logged in user (create link_user_skill row)
+  describe('/user_skills', () => {
+    beforeEach('seed database tables', () => helpers.seedDb(db));
 
-  /user_skills/:user_id
-    GET Returns all skills for a specified user
+    describe('GET /user_skills', () => {
+      const userSkills = helpers.makeLinkUserSKillsArray();
+      it(`responds with all link_user_skills`, () => {
+        return supertest(app)
+          .get('/api/user_skills')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(200, userSkills);
+      });
+    });
 
-  /user_skills/skills/:skill_id
-    GET  Retrieves matching skill from all profiles
-      ?q=queryText
-      ?t=skillType
-      ?z=zip
+    describe('POST /user_skills', () => {
+      it(`responds with all link_user_skills`, () => {
+        const newUserSkill = {
+          skill_id: 30,
+          skill_desc: 'Testy test test',
+          user_skill_type: 'PROVIDER',
+        };
+        return supertest(app)
+          .post('/api/user_skills')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .send(newUserSkill)
+          .expect(201)
+          .expect((res) => {
+            const data = res.body[0];
 
-  /user_skills/details/:user_skill_id
-    GET Return skill_details array for specific link_user_skill.id
-  */
+            expect(data).to.have.property('id');
+            expect(data.fk_user_id).to.eql(testUsers[0].id);
+            expect(data.fk_skill_id).to.eql(newUserSkill.skill_id);
+            expect(data.user_skill_type).to.eql(newUserSkill.user_skill_type);
+            expect(data.primary_description).to.eql(newUserSkill.skill_desc);
+          });
+      });
+    });
+  });
+
+  describe('GET /user_skills/:user_id', () => {
+    beforeEach('seed database tables', () => helpers.seedDb(db));
+
+    it(`responds with all skills for a specified user`, () => {
+      const userSkills = helpers
+        .makeLinkUserSKillsArray()
+        .filter((userSkill) => userSkill.fk_user_id === testUsers[0].id);
+
+      return supertest(app)
+        .get(`/api/user_skills/${testUsers[0].id}`)
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200)
+        .expect((res) => {
+          userSkills.forEach((fixture, idx) => {
+            const userSkill = res.body[idx];
+            expect(userSkill).to.have.property('id');
+            expect(userSkill.fk_user_id).to.eql(testUsers[0].id);
+          });
+          //, userSkills);
+        });
+    });
+  });
 
   describe('GET /user_skills/skills/:skill_id', () => {
     const userSkills = [
