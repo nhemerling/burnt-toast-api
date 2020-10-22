@@ -6,7 +6,6 @@ describe('Protected Endpoints', function () {
   let db;
 
   const testUsers = helpers.makeUsersArray();
-  const [testUser] = testUsers;
 
   before('make knex instance', () => {
     db = helpers.makeKnexInstance();

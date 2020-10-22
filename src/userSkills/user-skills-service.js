@@ -45,7 +45,8 @@ const UserSkillsService = {
       .from('link_user_skill as us')
       .join('user_profile as p', 'p.fk_user_id', 'us.fk_user_id')
       .join('skill as s', 's.id', 'us.fk_skill_id')
-      .where('fk_skill_id', skillId);
+      .where('fk_skill_id', skillId)
+      .orderBy('us.id');
   },
 };
 
