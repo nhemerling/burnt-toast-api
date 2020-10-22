@@ -45,20 +45,6 @@ profilesRouter
     } catch (error) {
       next(error);
     }
-  });
-profilesRouter
-  .route('/:profile_id')
-  .get(jsonBodyParser, async (req, res, next) => {
-    try {
-      const id = req.user.id;
-      const profile = await ProfilesService.getUserProfileById(
-        req.app.get('db'),
-        id
-      );
-      res.status(200).json(profile);
-    } catch (error) {
-      next(error);
-    }
   })
   .patch(jsonBodyParser, async (req, res, next) => {
     try {
@@ -77,6 +63,21 @@ profilesRouter
         profileInfo
       );
       res.status(200).json(updatedProfile);
+    } catch (error) {
+      next(error);
+    }
+  });
+  
+profilesRouter
+  .route('/:profile_id')
+  .get(jsonBodyParser, async (req, res, next) => {
+    try {
+      const id = req.params.profile_id;
+      const profile = await ProfilesService.getUserProfileById(
+        req.app.get('db'),
+        id
+      );
+      res.status(200).json(profile);
     } catch (error) {
       next(error);
     }
