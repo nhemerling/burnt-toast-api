@@ -17,6 +17,13 @@ const UserService = {
       .returning('*')
       .then(([user]) => user);
   },
+  deleteUser(db, id){
+    return db
+      .select('*')
+      .from('registered_user')
+      .where('id', id)
+      .del ();
+  },
   createInitialProfile(db, user_profile){
     return db
       .insert(user_profile)

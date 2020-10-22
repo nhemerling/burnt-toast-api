@@ -1,3 +1,4 @@
+'use strict';
 const UserSkillsService = {
   postLinkUserSkills(db, linkUserSkill) {
     return db.insert(linkUserSkill).into('link_user_skill').returning('*');
@@ -26,6 +27,13 @@ const UserSkillsService = {
       .select('*')
       .from('skill_detail')
       .where('fk_link_user_skill_id', id);
+  },
+  deleteUserSkillDetailsById(db, id){
+    return db
+      .select('*')
+      .from('link_user_skill')
+      .where('id', id)
+      .del ();
   },
   getAllUsersAndSkills(db) {
     return db.select('*').from('link_user_skill');
