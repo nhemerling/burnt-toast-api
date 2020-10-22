@@ -5,7 +5,9 @@ const UserService = require('./users-service');
 const userRouter = express.Router();
 const jsonBodyParser = express.json();
 
-userRouter.post('/', jsonBodyParser, async (req, res, next) => {
+userRouter
+  .route('/')
+  .post(jsonBodyParser, async (req, res, next) => {
   const { full_name, username, password, email, zip } = req.body;
 
   for (const field of ['username', 'password']) {
@@ -44,7 +46,6 @@ userRouter.post('/', jsonBodyParser, async (req, res, next) => {
       zip
     }
     await UserService.createInitialProfile(req.app.get('db'), user_profile)
-    const serialiazedUser = 
     res
       .status(201)
       .location(path.posix.join(req.originalUrl, `/${user.id}`))
@@ -52,6 +53,20 @@ userRouter.post('/', jsonBodyParser, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+  })
+userRouter
+  .route('/:user_id')
+  .delete(async (req, res, next) => {
+    const id = req.params.user_id;
+    console.log(id)
+    try {
+      await UserService.deleteUser(req.app.get('db'), id)  
+      res.status(200).send('Deleted user')    
+    } catch (error) {
+      next(error)
+    }
+    
+  });
+
 
 module.exports = userRouter;

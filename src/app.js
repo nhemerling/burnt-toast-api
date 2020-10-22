@@ -34,5 +34,4 @@ app.use('/api/user_skills', userSkillsRouter);
 app.use('/api/reviews', reviewsRouter);
 
 app.use(errorHandler);
-
 module.exports = app;
