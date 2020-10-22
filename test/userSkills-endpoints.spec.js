@@ -1,3 +1,4 @@
+const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
@@ -5,7 +6,6 @@ describe('UserSkills Endpoints', function () {
   let db;
 
   const testUsers = helpers.makeUsersArray();
-  const [testUser] = testUsers;
 
   before('make knex instance', () => {
     db = helpers.makeKnexInstance();
@@ -36,43 +36,95 @@ describe('UserSkills Endpoints', function () {
   */
 
   describe('GET /user_skills/skills/:skill_id', () => {
-    //seed data
-    //it responds with all matching tests with no filters
-    //it responds with descriptions containg queryText ?q=
-    //it responds with types matching Type ?t=
-    //it responds with zips matching ?z=
+    const userSkills = [
+      {
+        id: 1,
+        fk_user_id: 2,
+        fk_skill_id: 6,
+        user_skill_type: 'PROVIDER',
+        primary_img_url: null,
+        primary_description: 'User summary funky for this skill',
+        zip: '90210',
+        skill_name: 'Art Classes',
+      },
+      {
+        id: 2,
+        fk_user_id: 1,
+        fk_skill_id: 6,
+        user_skill_type: 'PROVIDER',
+        primary_img_url: null,
+        primary_description: 'User summary for this skill',
+        zip: '90210',
+        skill_name: 'Art Classes',
+      },
+      {
+        id: 3,
+        fk_user_id: 3,
+        fk_skill_id: 6,
+        user_skill_type: 'PROVIDER',
+        primary_img_url: null,
+        primary_description: 'User summary funky for this skill',
+        zip: '33333',
+        skill_name: 'Art Classes',
+      },
+      {
+        id: 4,
+        fk_user_id: 4,
+        fk_skill_id: 6,
+        user_skill_type: 'SEEKER',
+        primary_img_url: null,
+        primary_description: 'User summary funky for this skill',
+        zip: '44444',
+        skill_name: 'Art Classes',
+      },
+    ];
+
+    beforeEach('seed database tables', () => {
+      return helpers.seedDb(db);
+    });
+
+    //no filters
+    it(`responds with all matching link_user_skills`, () => {
+      return supertest(app)
+        .get('/api/user_skills/skills/6')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200, userSkills);
+    });
+
+    //queryText ?q=
+    it(`responds with only skills containing specified queryTest in the description`, () => {
+      const filteredSkills = userSkills.filter((skill) => {
+        return skill.primary_description.includes('funky');
+      });
+
+      return supertest(app)
+        .get('/api/user_skills/skills/6?q=funky')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200, filteredSkills);
+    });
+
+    //skill_type ?t=PROVIDER
+    it(`responds with only skills of specified Type`, () => {
+      const filteredSkills = userSkills.filter((skill) => {
+        return skill.user_skill_type === 'PROVIDER';
+      });
+
+      return supertest(app)
+        .get('/api/user_skills/skills/6?t=PROVIDER')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200, filteredSkills);
+    });
+
+    //Zip ?z=
+    it(`responds with only skills in matching zipcode`, () => {
+      const filteredSkills = userSkills.filter((skill) => {
+        return skill.zip === '90210';
+      });
+
+      return supertest(app)
+        .get('/api/user_skills/skills/6?z=90210')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200, filteredSkills);
+    });
   });
 });
-
-/***
-   /**
-   * @description Register a user and populate their fields
-   **
-  describe(`POST /api/profiles`, () => {
-    beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
-
-    //check required fields
-    const requiredFields = ['full_name', 'email'];
-
-    requiredFields.forEach((field) => {
-      const postAttemptBody = {
-        //fk_user_id INTEGER REFERENCES registered_user(id) ON DELETE CASCADE NOT NULL,
-        full_name: 'Test Profile',
-        email: 'test@test.com',
-        zip: '90210',
-        profile_desc: 'Lorem ipsum I have no profile pic',
-      };
-
-      it(`responds with 400 required error when '${field}' is missing`, () => {
-        delete postAttemptBody[field];
-
-        return supertest(app)
-          .post('/api/profiles')
-          .set('Authorization', helpers.makeAuthHeader(testUser))
-          .send(postAttemptBody)
-          .expect(400, {
-            error: `Missing '${field}' in request body`,
-          });
-      });
-    });
- */
