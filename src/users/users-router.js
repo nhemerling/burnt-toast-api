@@ -6,7 +6,7 @@ const userRouter = express.Router();
 const jsonBodyParser = express.json();
 
 userRouter.post('/', jsonBodyParser, async (req, res, next) => {
-  const { password, username } = req.body;
+  const { full_name, username, password, email, zip } = req.body;
 
   for (const field of ['username', 'password']) {
     if (!req.body[field]) {
@@ -35,9 +35,16 @@ userRouter.post('/', jsonBodyParser, async (req, res, next) => {
       username,
       hashed_pass: hashedPassword,
     };
-
+    
     const user = await UserService.insertUser(req.app.get('db'), newUser);
-
+    const user_profile = {
+      fk_user_id: user.id,
+      full_name,
+      email,
+      zip
+    }
+    await UserService.createInitialProfile(req.app.get('db'), user_profile)
+    const serialiazedUser = 
     res
       .status(201)
       .location(path.posix.join(req.originalUrl, `/${user.id}`))

@@ -17,6 +17,12 @@ const UserService = {
       .returning('*')
       .then(([user]) => user);
   },
+  createInitialProfile(db, user_profile){
+    return db
+      .insert(user_profile)
+      .into('user_profile')
+      .returning('*');
+  },
   validatePassword(password) {
     if (password.length < 8) {
       return 'Password be longer than 8 characters';
