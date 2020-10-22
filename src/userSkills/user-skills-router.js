@@ -44,6 +44,20 @@ userSkillsRouter
     }
 
   });
+userSkillsRouter
+  .route('/:user_skill_id')
+  .delete(async(req, res, next) => {
+    console.log('Delete the hell out of this skill')
+    try { 
+     const id = req.params.user_skill_id;
+     console.log(id)
+      await UserSkillsService.deleteUserSkillDetailsById(req.app.get('db'), id)
+      res.status(200).send('Skill deleted');
+    } catch (error) {
+      next(error)
+    }
+  });
+  
 userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
   try {
     const id = req.params.user_id;
@@ -115,5 +129,6 @@ userSkillsRouter
       next(error);
     }
   });
+
 
 module.exports = userSkillsRouter;
