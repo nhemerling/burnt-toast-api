@@ -4,7 +4,9 @@ const UserService = require('./users-service');
 
 const userRouter = express.Router();
 const jsonBodyParser = express.json();
+const { requireAuth } = require('../middleware/jwt-auth')
 
+userRouter.use(requireAuth)
 userRouter
   .route('/')
   .post(jsonBodyParser, async (req, res, next) => {
@@ -54,11 +56,8 @@ userRouter
     next(error);
   }
   })
-userRouter
-  .route('/:user_id')
   .delete(async (req, res, next) => {
-    const id = req.params.user_id;
-    console.log(id)
+    const id = req.user.id;
     try {
       await UserService.deleteUser(req.app.get('db'), id)  
       res.status(200).send('Deleted user')    
@@ -66,7 +65,7 @@ userRouter
       next(error)
     }
     
-  });
+  })
 
 
 module.exports = userRouter;
