@@ -115,46 +115,6 @@ VALUES
 (
   3,
   'Beauty'
-),
-(
-  4,
-  'Computers'
-),
-(
-  5,
-  'Education'
-),
-(
-  6,
-  'Electronics'
-),
-(
-  7,
-  'Food'
-),
-(
-  8,
-  'Handmade'
-),
-(
-  9,
-  'Health'
-),
-(
-  10,
-  'Home'
-),
-(
-  11,
-  'Repair'
-),
-(
-  12,
-  'Sports'
-),
-(
-  13,
-  'Other'
 );
 
 SELECT setval('category_id_seq', (SELECT max(id) FROM category), true);
