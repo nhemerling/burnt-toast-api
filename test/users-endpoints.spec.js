@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe('User Endpoints', function () {
+describe.only('User Endpoints', function () {
   let db;
 
   const testUsers = helpers.makeUsersArray();
@@ -25,12 +25,15 @@ describe('User Endpoints', function () {
   describe(`POST /api/users`, () => {
     beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
 
-    const requiredFields = ['username', 'password'];
+    const requiredFields = ['username', 'password', 'full_name', 'email'];
 
     requiredFields.forEach((field) => {
       const registerAttemptBody = {
         username: 'test username',
         password: 'test password',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
+        zip: '12345',
       };
 
       it(`responds with 400 required error when '${field}' is missing`, () => {
