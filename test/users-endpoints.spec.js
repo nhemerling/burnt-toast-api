@@ -52,6 +52,8 @@ describe.only('User Endpoints', function () {
       const userShortPassword = {
         username: 'test username',
         password: '1234567',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -63,6 +65,8 @@ describe.only('User Endpoints', function () {
       const userLongPassword = {
         username: 'test username',
         password: '*'.repeat(73),
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -74,6 +78,8 @@ describe.only('User Endpoints', function () {
       const userPasswordStartsSpaces = {
         username: 'test username',
         password: ' 1Aa!2Bb@',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -87,6 +93,8 @@ describe.only('User Endpoints', function () {
       const userPasswordEndsSpaces = {
         username: 'test username',
         password: '1Aa!2Bb@ ',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -100,6 +108,8 @@ describe.only('User Endpoints', function () {
       const userPasswordNotComplex = {
         username: 'test username',
         password: '11AAaabb',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -113,6 +123,8 @@ describe.only('User Endpoints', function () {
       const duplicateUser = {
         username: testUser.username,
         password: '11AAaa!!',
+        full_name: 'Test User',
+        email: 'test@test123asdfjkl.com',
       };
       return supertest(app)
         .post('/api/users')
@@ -125,6 +137,8 @@ describe.only('User Endpoints', function () {
         const newUser = {
           username: 'test username',
           password: '11AAaa!!',
+          full_name: 'Test User',
+          email: 'test@test123asdfjkl.com',
         };
         return supertest(app)
           .post('/api/users')
@@ -142,6 +156,8 @@ describe.only('User Endpoints', function () {
         const newUser = {
           username: 'test username',
           password: '11AAaa!!',
+          full_name: 'Test User',
+          email: 'test@test123asdfjkl.com',
         };
         return supertest(app)
           .post('/api/users')
