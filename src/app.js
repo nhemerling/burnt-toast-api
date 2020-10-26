@@ -20,7 +20,7 @@ app.use(
   })
 );
 app.get('/', (req, res) => {
-  res.send('Hello, burnt_toast'); //TODO: make this self-documenting API
+  res.send('Hello, burnt_toast');
 });
 
 app.use(cors());
@@ -31,7 +31,6 @@ app.use('/api/profiles', profilesRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/skills', skillsRouter);
 app.use('/api/user_skills', userSkillsRouter);
-app.use('/api/reviews', reviewsRouter);
 
 app.use(errorHandler);
 module.exports = app;
