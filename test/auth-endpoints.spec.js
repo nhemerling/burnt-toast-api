@@ -84,10 +84,7 @@ describe('Auth Endpoints', function () {
     });
   });
 
-  /**
-   * @description Refresh token
-   **/
-  describe(`PATCH /api/auth`, () => {
+  describe(`PUT /api/auth`, () => {
     beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
 
     it(`responds 200 and JWT auth token using secret`, () => {

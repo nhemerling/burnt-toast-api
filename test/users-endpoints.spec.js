@@ -183,25 +183,10 @@ describe('User Endpoints', function () {
   });
 
   describe(`DELETE /api/users`, () => {
-    //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
     beforeEach('seed db', () => helpers.seedDb(db));
     let authToken = '';
 
     it(`responds with 200 when user is deleted`, () => {
-      // userValidCreds = {
-      //   username: testUser.username,
-      //   password: testUser.hashed_pass,
-      // };
-      // //simulate login
-      // supertest(app)
-      //   .post('/api/auth')
-      //   .send(userValidCreds)
-      //   .expect(200)
-      //   .expect((res) => {
-      //     res.authToken = authToken;
-      //     console.log('auth token: ', authToken);
-      //   });
-
       return supertest(app)
         .delete('/api/users')
         .set('Authorization', helpers.makeAuthHeader(testUser))

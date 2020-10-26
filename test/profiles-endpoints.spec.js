@@ -18,11 +18,7 @@ describe('Profiles Endpoints', function () {
 
   afterEach('cleanup', () => helpers.cleanTables(db));
 
-  /**
-   * @description Register a user and populate their fields
-   **/
   describe(`POST /api/profiles`, () => {
-    //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
     beforeEach('seed database', () => helpers.seedDb(db));
 
     //check required fields
@@ -30,7 +26,6 @@ describe('Profiles Endpoints', function () {
 
     requiredFields.forEach((field) => {
       const postAttemptBody = {
-        //fk_user_id INTEGER REFERENCES registered_user(id) ON DELETE CASCADE NOT NULL,
         full_name: 'Test Profile',
         email: 'test@test.com',
         zip: '90210',
