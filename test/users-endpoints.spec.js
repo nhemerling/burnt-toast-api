@@ -185,16 +185,31 @@ describe('User Endpoints', function () {
   describe(`DELETE /api/users`, () => {
     //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
     beforeEach('seed db', () => helpers.seedDb(db));
+    let authToken = '';
 
-    // it(`responds with 200 when user is deleted`, () => {
-    //   return supertest(app)
-    //     .delete('/')
-    //     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
-    //     .expect(200, 'Deleted user');
-    // });
+    it(`responds with 200 when user is deleted`, () => {
+      // userValidCreds = {
+      //   username: testUser.username,
+      //   password: testUser.hashed_pass,
+      // };
+      // //simulate login
+      // supertest(app)
+      //   .post('/api/auth')
+      //   .send(userValidCreds)
+      //   .expect(200)
+      //   .expect((res) => {
+      //     res.authToken = authToken;
+      //     console.log('auth token: ', authToken);
+      //   });
 
-    it(`responds with 404 Not Found when no user id (user not logged in)`, () => {
-      return supertest(app).delete('/').expect(404);
+      return supertest(app)
+        .delete('/api/users')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(200, 'Deleted user');
+    });
+
+    it(`responds with 401 Not Authorized when no user id (user not logged in)`, () => {
+      return supertest(app).delete('/api/users').expect(401);
     });
   });
 });
