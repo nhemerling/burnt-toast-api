@@ -182,7 +182,7 @@ describe('User Endpoints', function () {
     });
   });
 
-  describe.only(`DELETE /api/users`, () => {
+  describe(`DELETE /api/users`, () => {
     //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
     beforeEach('seed db', () => helpers.seedDb(db));
 
