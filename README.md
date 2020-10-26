@@ -1,26 +1,80 @@
-# Express Boilerplate!
+### BURNT_TOAST API 
 
-This is a boilerplate project used for starting new projects!
+This is the server for burnt_toast_client https://github.com/thinkful-ei-quail/burnt-toast-client
 
-## Set up
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+### List Of Endpoints 
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+Private endpoints require a valid token to be included in the header of the request. A Token can be acquired after successfully login.
 
-## Scripts
+* POST /api/auth required fields to login {username, password}
+=> Response 200 {TOKEN}
 
-Start the application `npm start`
+## Users Endpoints
 
-Start nodemon for the application `npm run dev`
+* POST /api/users required fields to sign up { full_name, username, password, email, zip }
+=> Response 201
 
-Run the tests `npm test`
+* DELETE /api/users
+=> Response with 200 'Deleted user'
 
-## Deploying
+## Profiles Endpoints
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+* GET /api/profiles 
+=> Response 200  [ profiles ]
+
+* POST /api/profiles required fields to create new profile { full_name, email, zip, profile_desc, profile_img_url }
+=> Response 201 { profile }
+
+* PATCH /api/profiles 
+=> Response 200 { updateProfile }
+
+* GET /api/profiles/:profile_id 
+=> Response 200 { profile }
+
+## User Skills Endpoints
+
+* GET /api/user_skills
+=> Response 200 [ allSkills ]
+
+* POST /api/user_skills required fields to post a skill { skill_id, skill_desc, user_skill_type, skill_img_url }
+=> Response 201 { skill }
+
+* DELETE /api/user_skills/:user_skill_id 
+=> Response 200 'Skill deleted'
+
+* GET /api/user_skills/:user_id
+=> Response 200 [ userSkills ]
+
+* GET /api/user_skills/skills/:skill_id?[optional filter params]
+=> Response 200 [ userSkills ]
+
+* GET /api/user_skills/details/:user_skill_id
+=> Response 200 {skillDetails}
+
+## Skills Endpoints
+
+* GET /api/skills
+=> Response 200 [ skills ]
+
+## Categories Endpoints
+
+* GET /api/categories
+=> Response 200 [ categories ]
+
+
+### Start Server
+
+* npm run dev
+
+### Migrate the dev database
+
+* npm run migrate
+
+### Run the test
+
+* npm test
+
+
+
+
