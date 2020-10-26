@@ -56,17 +56,19 @@ userSkillsRouter
     }
   });
   
-userSkillsRouter.route('/:user_id').get(async (req, res, next) => {
-  try {
-    const id = req.params.user_id;
-    const userSkills = await UserSkillsService.getLinkUserSkills(
-      req.app.get('db'),
-      id
-    );
-    res.status(200).json(userSkills);
-  } catch (error) {
-    next(error);
-  }
+userSkillsRouter
+  .route('/:user_id')
+  .get(async (req, res, next) => {
+    try {
+      const id = req.params.user_id;
+      const userSkills = await UserSkillsService.getLinkUserSkills(
+        req.app.get('db'),
+        id
+      );
+      res.status(200).json(userSkills);
+    } catch (error) {
+      next(error);
+    }
 });
 
 userSkillsRouter

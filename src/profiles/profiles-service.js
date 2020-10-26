@@ -26,7 +26,7 @@ const ProfilesService = {
     return db
       .select('*')
       .from('user_profile')
-      .where('id', id)
+      .where('fk_user_id', id)
       .update(profileInfo)
       .returning('*');
   }
