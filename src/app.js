@@ -11,7 +11,6 @@ const profilesRouter = require('./profiles/profiles-router');
 const categoriesRouter = require('./categories/categories-router');
 const skillsRouter = require('./skills/skills-router');
 const userSkillsRouter = require('./userSkills/user-skills-router');
-const reviewsRouter = require('../src/reviews/reviews-router');
 const app = express();
 
 app.use(

@@ -1,3 +1,5 @@
+const { expect } = require('chai');
+const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
@@ -45,8 +47,27 @@ describe('Profiles Endpoints', function () {
       });
     });
 
-    //field validation:  email, image_url
-
-    //valid profile/201
+    it(`responds with newlyCreated userProfile with valid profile data`, () => {
+      const postAttemptBody = {
+        full_name: 'Test Profile',
+        email: 'test@test.com',
+        zip: '90210',
+        profile_desc: 'Lorem ipsum I have no profile pic',
+      };
+      return supertest(app)
+        .post('/api/profiles')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .send(postAttemptBody)
+        .expect(201)
+        .expect((res) => {
+          const profile = res.body[0];
+          console.log('profile', profile);
+          expect(profile).to.have.property('id');
+          expect(profile.full_name).to.eql(postAttemptBody.full_name);
+          expect(profile.email).to.eql(postAttemptBody.email);
+          expect(profile.zip).to.eql(postAttemptBody.zip);
+          expect(profile.profile_desc).to.eql(postAttemptBody.profile_desc);
+        });
+    });
   });
 });
