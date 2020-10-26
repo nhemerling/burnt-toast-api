@@ -182,19 +182,19 @@ describe('User Endpoints', function () {
     });
   });
 
-  describe.only(`DELETE /api/users`, () => {
-    //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+  describe(`DELETE /api/users`, () => {
     beforeEach('seed db', () => helpers.seedDb(db));
+    let authToken = '';
 
-    // it(`responds with 200 when user is deleted`, () => {
-    //   return supertest(app)
-    //     .delete('/')
-    //     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
-    //     .expect(200, 'Deleted user');
-    // });
+    it(`responds with 200 when user is deleted`, () => {
+      return supertest(app)
+        .delete('/api/users')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(200, 'Deleted user');
+    });
 
-    it(`responds with 404 Not Found when no user id (user not logged in)`, () => {
-      return supertest(app).delete('/').expect(404);
+    it(`responds with 401 Not Authorized when no user id (user not logged in)`, () => {
+      return supertest(app).delete('/api/users').expect(401);
     });
   });
 });
