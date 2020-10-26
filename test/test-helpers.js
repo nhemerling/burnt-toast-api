@@ -735,6 +735,7 @@ function seedDb(db) {
 module.exports = {
   makeKnexInstance,
   makeUsersArray,
+  makeCategoriesArray,
   makeAuthHeader,
   makeLinkUserSKillsArray,
   cleanTables,
