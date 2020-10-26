@@ -37,6 +37,9 @@ describe('Skill Endpoints', () => {
         .expect(res => {
           expect(res).to.be.an('array');
           expect(res[0]).to.have.property('id');
+          expect(res[0]).to.have.property('fk_category_id');
+          expect(res[0]).to.have.property('skill_name');
+          expect(res[0]).to.have.property('skill_desc');
         });
     });
   });
