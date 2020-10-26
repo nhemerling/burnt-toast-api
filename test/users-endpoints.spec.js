@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
@@ -178,6 +179,22 @@ describe('User Endpoints', function () {
               })
           );
       });
+    });
+  });
+
+  describe.only(`DELETE /api/users`, () => {
+    //beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+    beforeEach('seed db', () => helpers.seedDb(db));
+
+    // it(`responds with 200 when user is deleted`, () => {
+    //   return supertest(app)
+    //     .delete('/')
+    //     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+    //     .expect(200, 'Deleted user');
+    // });
+
+    it(`responds with 404 Not Found when no user id (user not logged in)`, () => {
+      return supertest(app).delete('/').expect(404);
     });
   });
 });
