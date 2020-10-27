@@ -736,6 +736,7 @@ module.exports = {
   makeKnexInstance,
   makeUsersArray,
   makeCategoriesArray,
+  makeUserProfilesArray,
   makeAuthHeader,
   makeLinkUserSKillsArray,
   cleanTables,
