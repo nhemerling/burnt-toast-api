@@ -739,6 +739,7 @@ module.exports = {
   makeUserProfilesArray,
   makeAuthHeader,
   makeLinkUserSKillsArray,
+  makeSkillsDetailArray,
   cleanTables,
   seedUsers,
   seedDb,

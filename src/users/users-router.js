@@ -4,8 +4,9 @@ const UserService = require('./users-service');
 
 const userRouter = express.Router();
 const jsonBodyParser = express.json();
-const { requireAuth } = require('../middleware/jwt-auth');
+const { requireAuth } = require('../middleware/jwt-auth')
 
+userRouter.use(requireAuth)
 userRouter
   .route('/')
   .post(jsonBodyParser, async (req, res, next) => {
@@ -63,6 +64,7 @@ userRouter
     } catch (error) {
       next(error);
     }
-  });
+    
+  })
 
 module.exports = userRouter;

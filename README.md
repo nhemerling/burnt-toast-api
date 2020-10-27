@@ -3,6 +3,7 @@
 This is the server for burnt_toast_client https://github.com/thinkful-ei-quail/burnt-toast-client
 
 
+
 ### List Of Endpoints 
 
 Private endpoints require a valid token to be included in the header of the request. A Token can be acquired after successfully login.
@@ -75,6 +76,13 @@ Private endpoints require a valid token to be included in the header of the requ
 
 * npm test
 
+### CONTRIBUTORS
+
+* @elmoctarebnou
+* @jsmith774
+* @nhemerling
+* @sonalinajera
+* @the-gamblers-fallacy
 
 
 
