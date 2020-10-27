@@ -90,18 +90,21 @@ describe('Protected Endpoints', function () {
       method: supertest(app).get,
     },
     /*
-     * /api/users/:user_id
+     * /api/users/
      */
-    //    {
-    //      name: 'PATCH /api/users/:user_id',
-    //      path: '/api/users/1',
-    //      method: supertest(app).patch,
-    //    },
-    //    {
-    //      name: 'DELETE /api/users/:user_id',
-    //      path: '/api/users/1',
-    //      method: supertest(app).delete,
-    //    },
+    {
+      name: 'DELETE /api/users',
+      path: '/api/users',
+      method: supertest(app).delete,
+    },
+    /*
+     * /api/skills
+     */
+    {
+      name: 'GET /api/skills',
+      path: '/api/skills',
+      method: supertest(app).get,
+    },
   ];
 
   protectedEndpoints.forEach((endpoint) => {

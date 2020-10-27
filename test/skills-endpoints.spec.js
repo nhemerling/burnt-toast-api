@@ -9,7 +9,6 @@ describe('Skill Endpoints', () => {
   let db;
 
   const testUsers = helpers.makeUsersArray();
-  const [testUser] = testUsers;
 
   before('make knex instance', () => {
     db = helpers.makeKnexInstance();
@@ -23,8 +22,8 @@ describe('Skill Endpoints', () => {
   afterEach('cleanup', () => helpers.cleanTables(db));
 
   /**
-     * @description Get all the skills from the static skills table.
-  **/
+   * @description Get all the skills from the static skills table.
+   **/
   describe('GET /api/skills', () => {
     beforeEach('Insert category and skills', () => {
       helpers.seedDb(db);
@@ -32,18 +31,18 @@ describe('Skill Endpoints', () => {
     it('Respond with 200 and return an array of skills', () => {
       return supertest(app)
         .get('/api/skills')
-        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
         .expect(200)
-        .expect(res => {
-          expect(res).to.be.an('array');
-          expect(res[0]).to.have.property('id');
-          expect(res[0]).to.have.property('fk_category_id');
-          expect(res[0]).to.have.property('skill_name');
-          expect(res[0]).to.have.property('skill_desc');
+        .expect((res) => {
+          const skillsArray = res.body;
+          expect(skillsArray).to.be.an('array');
+          skillsArray.forEach((skill) => {
+            expect(skill).to.have.property('id');
+            expect(skill).to.have.property('fk_category_id');
+            expect(skill).to.have.property('skill_name');
+            expect(skill).to.have.property('skill_desc');
+          });
         });
     });
   });
-
-
-
 });
