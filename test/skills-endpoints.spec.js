@@ -9,7 +9,7 @@ describe('Skill Endpoints', () => {
   let db;
 
   const testUsers = helpers.makeUsersArray();
-  const [testUser] = testUsers;
+  const testUser = testUsers[0];
 
   before('make knex instance', () => {
     db = helpers.makeKnexInstance();
@@ -43,7 +43,4 @@ describe('Skill Endpoints', () => {
         });
     });
   });
-
-
-
 });

@@ -1,6 +1,7 @@
 'use strict';
 const { expect } = require('chai');
 const supertest = require('supertest');
+const { set } = require('../src/app');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
@@ -77,6 +78,36 @@ describe('UserSkills Endpoints', function () {
             expect(userSkill.fk_user_id).to.eql(testUsers[0].id);
           });
           //, userSkills);
+        });
+    });
+  });
+  describe('DELETE /user_skills/:user_skill_id ', () => {
+    beforeEach('Seed database tables', () => helpers.seedDb(db));
+    const userSkills = helpers.makeLinkUserSKillsArray();
+    it('Respond with 200 Skill deleted', () => {
+      return supertest(app)
+        .delete(`/api/user_skills/${userSkills[0].id}`)
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200)
+        .expect('Skill deleted');
+    });
+  });
+
+  describe('GET /user_skills/details/:user_skill_id', () => {
+    beforeEach('Seed database table', () => helpers.seedDb(db));
+    const user_skill_id = 11;
+    it('Respond with a list of skills details', () => {
+      return supertest(app)
+        .get(`/api/user_skills/details/${user_skill_id}`)
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(200)
+        .expect(res => {
+          const data = res.body;
+          expect(data).to.be.an('array');
+          expect(data[0]).to.have.property('id');
+          expect(data[0]).to.have.property('fk_link_user_skill_id');
+          expect(data[0]).to.have.property('detail_img_url');
+          expect(data[0]).to.have.property('details_description');
         });
     });
   });

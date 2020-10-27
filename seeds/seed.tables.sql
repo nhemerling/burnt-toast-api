@@ -327,7 +327,7 @@ VALUES
 (
   28,
   9,
-  'Excercise',
+  'Exercise',
   'A skill in Some Category'
 ),
 (
