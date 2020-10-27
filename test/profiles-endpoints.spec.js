@@ -1,3 +1,5 @@
+const { expect } = require('chai');
+const supertest = require('supertest');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
@@ -45,8 +47,83 @@ describe('Profiles Endpoints', function () {
       });
     });
 
-    //field validation:  email, image_url
+    it(`responds with newlyCreated userProfile with valid profile data`, () => {
+      const postAttemptBody = {
+        full_name: 'Test Profile',
+        email: 'test@test.com',
+        zip: '90210',
+        profile_desc: 'Lorem ipsum I have no profile pic',
+      };
+      return supertest(app)
+        .post('/api/profiles')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .send(postAttemptBody)
+        .expect(201)
+        .expect((res) => {
+          const profile = res.body[0];
+          expect(profile).to.have.property('id');
+          expect(profile.full_name).to.eql(postAttemptBody.full_name);
+          expect(profile.email).to.eql(postAttemptBody.email);
+          expect(profile.zip).to.eql(postAttemptBody.zip);
+          expect(profile.profile_desc).to.eql(postAttemptBody.profile_desc);
+        });
+    });
+  });
 
-    //valid profile/201
+  describe(`PATCH /api/profiles`, () => {
+    beforeEach('seed database', () => helpers.seedDb(db));
+
+    const originalTestProfile = helpers.makeUserProfilesArray()[0];
+
+    it(`returns updated userProfile with new 'profile_desc' value`, () => {
+      const patchAttemptBody = {
+        profile_desc: 'This is an updated description',
+      };
+      return supertest(app)
+        .patch('/api/profiles')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .send(patchAttemptBody)
+        .expect(200)
+        .expect((res) => {
+          const updatedProfile = res.body[0];
+          expect(updatedProfile.full_name).to.eql(
+            originalTestProfile.full_name
+          );
+          expect(updatedProfile.email).to.eql(originalTestProfile.email);
+          expect(updatedProfile.zip).to.eql(originalTestProfile.zip);
+          expect(updatedProfile.profile_desc).to.eql(
+            patchAttemptBody.profile_desc
+          );
+          expect(updatedProfile.profile_img_url).to.eql(
+            originalTestProfile.profile_img_url
+          );
+        });
+    });
+  });
+
+  describe(`GET /api/profiles`, () => {
+    beforeEach('seed database', () => helpers.seedDb(db));
+    const userProfiles = helpers.makeUserProfilesArray();
+
+    //todo implement tests
+    it(`responds with an array of all profiles`, () => {
+      return supertest(app)
+        .get('/api/profiles')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(200, userProfiles);
+    });
+  });
+
+  describe(`GET /api/profiles/:profile_id`, () => {
+    beforeEach('seed database', () => helpers.seedDb(db));
+
+    const testProfile = helpers.makeUserProfilesArray()[3];
+    //todo implement tests
+    it(`responds with the specified profile`, () => {
+      return supertest(app)
+        .get('/api/profiles/4')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(200, testProfile);
+    });
   });
 });
