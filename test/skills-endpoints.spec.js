@@ -15,19 +15,26 @@ describe('Skill Endpoints', () => {
     app.set('db', db);
   });
 
-  after('disconnect from db', () => db.destroy());
+  before('cleanup', () => {
+    return helpers.cleanTables(db);
+  });
 
-  before('cleanup', () => helpers.cleanTables(db));
+  before('Seed db', () => {
+    return helpers.seedDb(db);
+  });
 
-  afterEach('cleanup', () => helpers.cleanTables(db));
+  afterEach('cleanup', () => {
+    return helpers.cleanTables(db);
+  });
+
+  after('disconnect from db', () => {
+    return db.destroy();
+  });
 
   /**
    * @description Get all the skills from the static skills table.
    **/
   describe('GET /api/skills', () => {
-    beforeEach('Insert category and skills', () => {
-      helpers.seedDb(db);
-    });
     it('Respond with 200 and return an array of skills', () => {
       return supertest(app)
         .get('/api/skills')

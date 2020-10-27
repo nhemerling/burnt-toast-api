@@ -13,6 +13,7 @@ skillsRouter.route('/').get(async (req, res, next) => {
     const skills = await SkillsService.getAllSkills(req.app.get('db'));
     res.status(200).json(skills);
   } catch (error) {
+    console.log('THIS IS A TEST', error);
     next(error);
   }
 });
