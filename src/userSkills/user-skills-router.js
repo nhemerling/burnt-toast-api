@@ -89,6 +89,7 @@ userSkillsRouter
   .route('/skills/:skill_id') //:skill_id is skill.id ? q = query, t = type, z = zip
   .get(async (req, res, next) => {
     let userSkills = [];
+    console.log('hey')
     try {
       userSkills = await UserSkillsService.getUserSkillsBySkill(
         req.app.get('db'),

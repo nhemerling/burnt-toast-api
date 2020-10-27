@@ -1,3 +1,4 @@
+'use strict';
 const { expect } = require('chai');
 const supertest = require('supertest');
 const app = require('../src/app');
@@ -86,6 +87,7 @@ describe('UserSkills Endpoints', function () {
         id: 1,
         fk_user_id: 2,
         fk_skill_id: 6,
+        full_name: 'User Two',
         user_skill_type: 'PROVIDER',
         primary_img_url: null,
         primary_description: 'User summary funky for this skill',
@@ -96,6 +98,7 @@ describe('UserSkills Endpoints', function () {
         id: 2,
         fk_user_id: 1,
         fk_skill_id: 6,
+        full_name: 'User One',
         user_skill_type: 'PROVIDER',
         primary_img_url: null,
         primary_description: 'User summary for this skill',
@@ -106,6 +109,7 @@ describe('UserSkills Endpoints', function () {
         id: 3,
         fk_user_id: 3,
         fk_skill_id: 6,
+        full_name: 'User Three',
         user_skill_type: 'PROVIDER',
         primary_img_url: null,
         primary_description: 'User summary funky for this skill',
@@ -116,6 +120,7 @@ describe('UserSkills Endpoints', function () {
         id: 4,
         fk_user_id: 4,
         fk_skill_id: 6,
+        full_name: 'User Four',
         user_skill_type: 'SEEKER',
         primary_img_url: null,
         primary_description: 'User summary funky for this skill',
