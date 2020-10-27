@@ -114,13 +114,16 @@ describe('Profiles Endpoints', function () {
     });
   });
 
-  /*
-  describe(`GET /api/profiles/:profile_id`, () => {
+  describe.only(`GET /api/profiles/:profile_id`, () => {
     beforeEach('seed database', () => helpers.seedDb(db));
+
+    const testProfile = helpers.makeUserProfilesArray()[3];
     //todo implement tests
     it(`responds with the specified profile`, () => {
-      return supertest(app).get('/api/profiles/1').expect('fail');
+      return supertest(app)
+        .get('/api/profiles/4')
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(200, testProfile);
     });
   });
-  */
 });
