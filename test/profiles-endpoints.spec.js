@@ -114,7 +114,7 @@ describe('Profiles Endpoints', function () {
     });
   });
 
-  describe.only(`GET /api/profiles/:profile_id`, () => {
+  describe(`GET /api/profiles/:profile_id`, () => {
     beforeEach('seed database', () => helpers.seedDb(db));
 
     const testProfile = helpers.makeUserProfilesArray()[3];
