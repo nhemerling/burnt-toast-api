@@ -13,6 +13,7 @@ const UserSkillsService = {
         'us.primary_img_url',
         'us.primary_description',
         'p.zip',
+        'p.full_name',
         's.skill_name',
         'c.category_name'
       )

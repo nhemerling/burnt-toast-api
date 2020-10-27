@@ -11,7 +11,7 @@ skillsRouter.use(requireAuth);
 skillsRouter.route('/').get(async (req, res, next) => {
   try {
     const skills = await SkillsService.getAllSkills(req.app.get('db'));
-    res.send(skills);
+    res.status(200).send(skills);
   } catch (error) {
     next(error);
   }
