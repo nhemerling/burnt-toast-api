@@ -105,7 +105,6 @@ describe('Profiles Endpoints', function () {
     beforeEach('seed database', () => helpers.seedDb(db));
     const userProfiles = helpers.makeUserProfilesArray();
 
-    //todo implement tests
     it(`responds with an array of all profiles`, () => {
       return supertest(app)
         .get('/api/profiles')
@@ -118,7 +117,6 @@ describe('Profiles Endpoints', function () {
     beforeEach('seed database', () => helpers.seedDb(db));
 
     const testProfile = helpers.makeUserProfilesArray()[3];
-    //todo implement tests
     it(`responds with the specified profile`, () => {
       return supertest(app)
         .get('/api/profiles/4')
