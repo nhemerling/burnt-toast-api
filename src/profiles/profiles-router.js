@@ -67,7 +67,7 @@ profilesRouter
       next(error);
     }
   });
-  
+
 profilesRouter
   .route('/:profile_id')
   .get(jsonBodyParser, async (req, res, next) => {
@@ -77,6 +77,11 @@ profilesRouter
         req.app.get('db'),
         id
       );
+      if (!profile) {
+        res
+          .status(404)
+          .json({ error: `Requested user profile id '${id}' does not exist` });
+      }
       res.status(200).json(profile);
     } catch (error) {
       next(error);

@@ -77,8 +77,18 @@ describe('UserSkills Endpoints', function () {
             expect(userSkill).to.have.property('id');
             expect(userSkill.fk_user_id).to.eql(testUsers[0].id);
           });
-          //, userSkills);
         });
+    });
+    it(`responds with 404 for non-existant userId`, () => {
+      const userSkills = helpers
+        .makeLinkUserSKillsArray()
+        .filter((userSkill) => userSkill.fk_user_id === testUsers[0].id);
+
+      return supertest(app)
+        .get(`/api/user_skills/9`)
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(404, { error: `Requested user profile id '9' does not exist` });
+      //, userSkills);
     });
   });
   describe('DELETE /user_skills/:user_skill_id ', () => {
@@ -101,7 +111,7 @@ describe('UserSkills Endpoints', function () {
         .get(`/api/user_skills/details/${user_skill_id}`)
         .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
         .expect(200)
-        .expect(res => {
+        .expect((res) => {
           const data = res.body;
           expect(data).to.be.an('array');
           expect(data[0]).to.have.property('id');

@@ -123,5 +123,12 @@ describe('Profiles Endpoints', function () {
         .set('Authorization', helpers.makeAuthHeader(testUser))
         .expect(200, testProfile);
     });
+
+    it(`returns 404 if profile not found`, () => {
+      return supertest(app)
+        .get(`/api/profiles/9`)
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .expect(404, { error: `Requested user profile id '9' does not exist` });
+    });
   });
 });
