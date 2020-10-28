@@ -1,7 +1,8 @@
 ## BURNT_TOAST API 
 
 This is the server for burnt_toast_client https://github.com/thinkful-ei-quail/burnt-toast-client
-Created by Lucas Bigelow, El Moctar Ebnou, Nicholas Hemerling, Sonali Martinez-Najera, and Jim Smith.
+
+### Created by Lucas Bigelow, El Moctar Ebnou, Nicholas Hemerling, Sonali Martinez-Najera, and Jim Smith.
 
 ## Teck stack
 
